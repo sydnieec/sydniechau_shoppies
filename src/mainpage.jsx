@@ -19,7 +19,6 @@ class MainPage extends Component {
           <Form.Control type="" placeholder="Search for movie..." />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Search
         </Button>

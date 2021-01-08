@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SearchedMovies from "./movies";
 import axios from "axios";
+import Nominations from "./nominations";
 
 //component in charge of handling new items being added to the cart
 class App extends Component {
@@ -49,6 +50,17 @@ class App extends Component {
     this.setState({ searchField: event.target.value });
   };
 
+  onNominate = (movie, year, id) => {
+    this.state.nominationsList.push({
+      id: id,
+      name: movie,
+      year: year,
+    });
+    this.setState({
+      nominationsList: this.state.nominationsList,
+    });
+  };
+
   render() {
     return (
       // form to add item
@@ -74,8 +86,11 @@ class App extends Component {
           </Button>
           <p>{this.state.yo}</p>
         </Form>
-        <SearchedMovies searchedMovieList={this.state.searchedMovieList} />
-        {/* <Nominations nominationsList={this.state.nominationsList} /> */}
+        <SearchedMovies
+          onNominate={this.onNominate}
+          searchedMovieList={this.state.searchedMovieList}
+        />
+        <Nominations nominationsList={this.state.nominationsList} />
       </React.Fragment>
     );
   }
