@@ -10,17 +10,15 @@ class App extends Component {
   state = {
     searchedMovieList: [],
     nominationsList: [],
+    currentIdList: [],
     searchField: "",
     url: "http://www.omdbapi.com/?apikey=f7b87fd5&s=",
-    yo: "hi",
   };
   //sends a API post request to local server retreive product name and price
   addurl = (customUrl) => {
     axios
       .get(this.state.url + customUrl)
       .then((response) => {
-        console.log("YO", response);
-        console.log("YO", response.data.Search[0].Title);
         //fetched searched movie list and set it to current searchedmovielist
         var newSearchedMovieList = [];
         for (let i = 0; i < response.data.Search.length; i++) {
@@ -50,7 +48,20 @@ class App extends Component {
     this.setState({ searchField: event.target.value });
   };
 
+  handleDelete = (movieId) => {
+    //delete movie from current list of nominatations
+    const nominationsList = this.state.nominationsList.filter(
+      (c) => c.id !== movieId
+    );
+    this.setState({ nominationsList });
+
+    //delete movie from current list of ids held
+    const currentIdList = this.state.currentIdList.filter((c) => c !== movieId);
+    this.setState({ currentIdList: currentIdList });
+  };
+
   onNominate = (movie, year, id) => {
+    //add nominations from searched movies to nominations list
     this.state.nominationsList.push({
       id: id,
       name: movie,
@@ -59,16 +70,32 @@ class App extends Component {
     this.setState({
       nominationsList: this.state.nominationsList,
     });
+    this.state.currentIdList.push(id);
+    this.setState({ currentIdList: this.state.currentIdList });
   };
 
   render() {
+    let banner;
+    if (this.state.currentIdList.length >= 5) {
+      banner = (
+        <div style={{ color: "#11cbd7" }}>
+          <h1
+            style={{ color: "#fffff", fontWeight: "bold" }}
+            className="text-center mt-2"
+          >
+            You have finished Nominations!
+          </h1>
+        </div>
+      );
+    }
+
     return (
       // form to add item
       <React.Fragment>
         <h1 style={{ fontWeight: "bold" }} className="text-center mt-2">
           The Shoppies
         </h1>
-
+        {banner}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label> Movie Title</Form.Label>
@@ -82,15 +109,18 @@ class App extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Search!
+            Search
           </Button>
-          <p>{this.state.yo}</p>
         </Form>
         <SearchedMovies
           onNominate={this.onNominate}
           searchedMovieList={this.state.searchedMovieList}
+          currentIdList={this.state.currentIdList}
         />
-        <Nominations nominationsList={this.state.nominationsList} />
+        <Nominations
+          onDelete={this.handleDelete}
+          nominationsList={this.state.nominationsList}
+        />
       </React.Fragment>
     );
   }

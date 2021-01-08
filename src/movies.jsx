@@ -12,6 +12,7 @@ class SearchedMovies extends Component {
             key={searchedMovie.id}
             onNominate={this.props.onNominate}
             searchedMovie={searchedMovie}
+            currentIdList={this.props.currentIdList}
           />
         ))}
       </div>
@@ -24,35 +25,70 @@ export default SearchedMovies;
 //class for what an indivdual claim would look like
 class SearchedMovie extends Component {
   render() {
+    let button;
+    //this.props.nominationsList.includes(this.props.searchedMovie)
+    if (
+      this.props.currentIdList.includes(this.props.searchedMovie.id) ||
+      this.props.currentIdList.length >= 5
+    ) {
+      console.log("WHEE");
+      button = <DisabledButton />;
+    } else {
+      console.log(
+        "NOMINATEDS",
+        this.props.nominationsList,
+        this.props.searchedMovie
+      );
+      button = (
+        <button
+          onClick={() =>
+            this.props.onNominate(
+              this.props.searchedMovie.name,
+              this.props.searchedMovie.year,
+              this.props.searchedMovie.id
+            )
+          }
+          className="btn btn-success btn-sm m-2"
+        >
+          Nominate
+        </button>
+      );
+    }
     return (
       <div class="d-flex justify-content-between">
         <div>
           <span style={{ fontsize: 30 }}>
-            {this.props.searchedMovie.name} , {this.props.searchedMovie.year},{" "}
-            {this.props.searchedMovie.id}
+            {this.props.searchedMovie.name} - {this.props.searchedMovie.year}
           </span>
         </div>
-        <div>
-          <button
-            onClick={() =>
-              this.props.onNominate(
-                this.props.searchedMovie.name,
-                this.props.searchedMovie.year,
-                this.props.searchedMovie.id
-              )
-            }
-            className="btn btn-success btn-sm m-2"
-          >
-            Nominate
-          </button>
-          {/* <button
-            onClick={() => this.props.onDelete(this.props.searchedMovie.year)}
-            className="btn btn-danger btn-sm m-2"
-          >
-            Delete Claim
-          </button> */}
-        </div>
+
+        <div>{button}</div>
       </div>
     );
   }
+}
+
+function ActiveButton(props) {
+  return (
+    <button
+      onClick={() =>
+        this.props.onNominate(
+          this.props.searchedMovie.name,
+          this.props.searchedMovie.year,
+          this.props.searchedMovie.id
+        )
+      }
+      className="btn btn-success btn-sm m-2"
+    >
+      Nominate
+    </button>
+  );
+}
+
+function DisabledButton(props) {
+  return (
+    <button type="button" class="btn btn-secondary btn-sm m-2" disabled>
+      Nominate
+    </button>
+  );
 }
