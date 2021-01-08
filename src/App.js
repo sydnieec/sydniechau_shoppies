@@ -12,7 +12,7 @@ class App extends Component {
     nominationsList: [],
     currentIdList: [],
     searchField: "",
-    url: "http://www.omdbapi.com/?apikey=f7b87fd5&s=",
+    url: "https://www.omdbapi.com/?apikey=f7b87fd5&s=",
   };
   //sends a API post request to local server retreive product name and price
   addurl = (customUrl) => {
@@ -93,7 +93,7 @@ class App extends Component {
       // form to add item
       <React.Fragment>
         <h1 style={{ fontWeight: "bold" }} className="text-center mt-2">
-          The Shoppies
+          The Shoppies!
         </h1>
         {banner}
         <Form onSubmit={this.handleSubmit}>
