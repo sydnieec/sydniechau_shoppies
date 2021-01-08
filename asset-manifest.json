@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/sydniechau_shoppies/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/sydniechau_shoppies/static/js/main.9e4cdbdd.chunk.js",
+    "main.js.map": "/sydniechau_shoppies/static/js/main.9e4cdbdd.chunk.js.map",
+    "runtime-main.js": "/sydniechau_shoppies/static/js/runtime-main.997bcf7e.js",
+    "runtime-main.js.map": "/sydniechau_shoppies/static/js/runtime-main.997bcf7e.js.map",
+    "static/css/2.267ffeee.chunk.css": "/sydniechau_shoppies/static/css/2.267ffeee.chunk.css",
+    "static/js/2.471a4d0e.chunk.js": "/sydniechau_shoppies/static/js/2.471a4d0e.chunk.js",
+    "static/js/2.471a4d0e.chunk.js.map": "/sydniechau_shoppies/static/js/2.471a4d0e.chunk.js.map",
+    "static/js/3.f627c857.chunk.js": "/sydniechau_shoppies/static/js/3.f627c857.chunk.js",
+    "static/js/3.f627c857.chunk.js.map": "/sydniechau_shoppies/static/js/3.f627c857.chunk.js.map",
+    "index.html": "/sydniechau_shoppies/index.html",
+    "static/css/2.267ffeee.chunk.css.map": "/sydniechau_shoppies/static/css/2.267ffeee.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "/sydniechau_shoppies/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.471a4d0e.chunk.js.LICENSE.txt": "/sydniechau_shoppies/static/js/2.471a4d0e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.997bcf7e.js",
+    "static/css/2.267ffeee.chunk.css",
+    "static/js/2.471a4d0e.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.9e4cdbdd.chunk.js"
+  ]
+}
