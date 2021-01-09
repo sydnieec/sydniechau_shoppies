@@ -12,8 +12,10 @@ class App extends Component {
     nominationsList: [],
     currentIdList: [],
     searchField: "",
+    visited: false,
     url: "https://www.omdbapi.com/?apikey=f7b87fd5&s=",
   };
+
   //sends a API post request to local server retreive product name and price
   addurl = (customUrl) => {
     axios
@@ -50,14 +52,21 @@ class App extends Component {
 
   handleDelete = (movieId) => {
     //delete movie from current list of nominatations
-    const nominationsList = this.state.nominationsList.filter(
+    var nominationsList = this.state.nominationsList.filter(
       (c) => c.id !== movieId
     );
-    this.setState({ nominationsList });
 
     //delete movie from current list of ids held
-    const currentIdList = this.state.currentIdList.filter((c) => c !== movieId);
-    this.setState({ currentIdList: currentIdList });
+    var currentIdList = this.state.currentIdList.filter((c) => c !== movieId);
+
+    var local_currentIdList = JSON.stringify(currentIdList);
+    var local_nominationsList = JSON.stringify(nominationsList);
+
+    localStorage.setItem("localcurrentIdList", local_currentIdList);
+    localStorage.setItem("localnominationsList", local_nominationsList);
+
+    this.setState({ currentIdList });
+    this.setState({ nominationsList });
   };
 
   onNominate = (movie, year, id) => {
@@ -67,12 +76,43 @@ class App extends Component {
       name: movie,
       year: year,
     });
+
+    this.state.currentIdList.push(id);
+    var visited = this.state.currentIdList.length > 0;
+    localStorage.setItem("visited", visited);
+    this.setState({
+      visited: visited,
+    });
+    var local_currentIdList = JSON.stringify(this.state.currentIdList);
+    var local_nominationsList = JSON.stringify(this.state.nominationsList);
+    localStorage.setItem("localcurrentIdList", local_currentIdList);
+    localStorage.setItem("localnominationsList", local_nominationsList);
     this.setState({
       nominationsList: this.state.nominationsList,
     });
-    this.state.currentIdList.push(id);
     this.setState({ currentIdList: this.state.currentIdList });
+    this.setState({ visited: true });
+    console.log("ADDED", this.state.nominationsList, this.state.currentIdList);
   };
+
+  componentDidMount() {
+    const visited = localStorage.getItem("visited") === "true";
+    if (visited) {
+      const localnominationsList = localStorage.getItem("localnominationsList");
+      const localcurrentIdList = localStorage.getItem("localcurrentIdList");
+      var thisnominationsList = JSON.parse(localnominationsList);
+      var thiscurrentIdList = JSON.parse(localcurrentIdList);
+      this.setState({
+        nominationsList: thisnominationsList,
+        currentIdList: thiscurrentIdList,
+      });
+      console.log(
+        "REFRESH",
+        this.state.nominationsList,
+        this.state.currentIdList
+      );
+    }
+  }
 
   render() {
     let banner;
@@ -93,7 +133,7 @@ class App extends Component {
       // form to add item
       <React.Fragment>
         <h1 style={{ fontWeight: "bold" }} className="text-center mt-2">
-          The Shoppies!
+          The Shoppies
         </h1>
         {banner}
         <Form onSubmit={this.handleSubmit}>
@@ -121,6 +161,7 @@ class App extends Component {
           onDelete={this.handleDelete}
           nominationsList={this.state.nominationsList}
         />
+        {/* <p>WOAH{this.state.nominationsList} </p> */}
       </React.Fragment>
     );
   }

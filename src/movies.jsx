@@ -31,14 +31,8 @@ class SearchedMovie extends Component {
       this.props.currentIdList.includes(this.props.searchedMovie.id) ||
       this.props.currentIdList.length >= 5
     ) {
-      console.log("WHEE");
       button = <DisabledButton />;
     } else {
-      console.log(
-        "NOMINATEDS",
-        this.props.nominationsList,
-        this.props.searchedMovie
-      );
       button = (
         <button
           onClick={() =>

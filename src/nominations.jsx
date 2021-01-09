@@ -28,7 +28,8 @@ class NominatedMovie extends Component {
       <div class="d-flex justify-content-between">
         <div>
           <span style={{ fontsize: 30 }}>
-            {this.props.nominatedMovie.name} , {this.props.nominatedMovie.year}
+            {this.props.nominatedMovie.name} , {this.props.nominatedMovie.year},{" "}
+            {this.props.nominatedMovie.id}
           </span>
         </div>
         <div>
