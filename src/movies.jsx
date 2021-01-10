@@ -5,8 +5,16 @@ import Badge from "react-bootstrap/Badge";
 class SearchedMovies extends Component {
   render() {
     return (
-      <div>
-        <h1>Search Results</h1>
+      <div
+        style={{
+          marginTop: "3%",
+          marginLeft: "10%",
+          marginRight: "10%",
+          padding: "1%",
+        }}
+        className="searchedMovies"
+      >
+        <h1>Search Results {this.props.searchResultFor}</h1>
         {this.props.searchedMovieList.map((searchedMovie) => (
           <SearchedMovie
             key={searchedMovie.id}

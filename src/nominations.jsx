@@ -5,7 +5,16 @@ import Badge from "react-bootstrap/Badge";
 class NominatedMoives extends Component {
   render() {
     return (
-      <div>
+      <div
+        style={{
+          marginTop: "3%",
+          marginLeft: "10%",
+          marginRight: "10%",
+          padding: "1%",
+          backgroundColor: "#aeecae",
+        }}
+        className="Nominations"
+      >
         <h1>Nominations</h1>
         {this.props.nominationsList.map((nominatedMovie) => (
           <NominatedMovie
@@ -28,8 +37,7 @@ class NominatedMovie extends Component {
       <div class="d-flex justify-content-between">
         <div>
           <span style={{ fontsize: 30 }}>
-            {this.props.nominatedMovie.name} , {this.props.nominatedMovie.year},{" "}
-            {this.props.nominatedMovie.id}
+            {this.props.nominatedMovie.name} - {this.props.nominatedMovie.year}
           </span>
         </div>
         <div>

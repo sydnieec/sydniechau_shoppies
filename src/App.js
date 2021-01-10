@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import SearchedMovies from "./movies";
 import axios from "axios";
 import Nominations from "./nominations";
+import "./App.css";
 
 //component in charge of handling new items being added to the cart
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
     searchField: "",
     visited: false,
     url: "https://www.omdbapi.com/?apikey=f7b87fd5&s=",
+    searchResultFor: "",
   };
 
   //sends a API post request to local server retreive product name and price
@@ -34,7 +36,9 @@ class App extends Component {
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        alert(
+          "No search results/too many search results. Please refine your search."
+        );
       });
   };
 
@@ -42,6 +46,7 @@ class App extends Component {
     this.addurl(this.state.searchField);
     event.preventDefault();
     this.setState({
+      searchResultFor: " for " + "'" + this.state.searchField + "'",
       searchField: "",
     });
   };
@@ -120,23 +125,36 @@ class App extends Component {
       banner = (
         <div style={{ color: "#11cbd7" }}>
           <h1
-            style={{ color: "#fffff", fontWeight: "bold" }}
+            style={{ color: "#3c6947", fontWeight: "bold" }}
             className="text-center mt-2"
           >
             You have finished Nominations!
           </h1>
         </div>
       );
+      // alert("You have finsihed nominations");
     }
 
     return (
       // form to add item
-      <React.Fragment>
-        <h1 style={{ fontWeight: "bold" }} className="text-center mt-2">
+      <div style={{ divStyle }} className="Main">
+        <h1
+          style={{
+            fontWeight: "bold",
+            backgroundColor: "#aeecae",
+            color: "##126e12",
+            paddingBottom: "1%",
+          }}
+          className="text-center mt-2"
+        >
           The Shoppies
         </h1>
-        {banner}
-        <Form onSubmit={this.handleSubmit}>
+
+        <Form
+          className="searchBar"
+          style={divStyle}
+          onSubmit={this.handleSubmit}
+        >
           <Form.Group>
             <Form.Label> Movie Title</Form.Label>
             <Form.Control
@@ -152,19 +170,34 @@ class App extends Component {
             Search
           </Button>
         </Form>
-        <SearchedMovies
-          onNominate={this.onNominate}
-          searchedMovieList={this.state.searchedMovieList}
-          currentIdList={this.state.currentIdList}
-        />
-        <Nominations
-          onDelete={this.handleDelete}
-          nominationsList={this.state.nominationsList}
-        />
+        {banner}
+        <div className="rows">
+          <SearchedMovies
+            className="row"
+            onNominate={this.onNominate}
+            searchedMovieList={this.state.searchedMovieList}
+            currentIdList={this.state.currentIdList}
+            searchResultFor={this.state.searchResultFor}
+          />
+          <Nominations
+            className="row"
+            onDelete={this.handleDelete}
+            nominationsList={this.state.nominationsList}
+          />
+        </div>
+
         {/* <p>WOAH{this.state.nominationsList} </p> */}
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 export default App;
+
+const divStyle = {
+  marginTop: "3%",
+
+  marginLeft: "20%",
+  marginRight: "20%",
+  padding: "1%",
+};
