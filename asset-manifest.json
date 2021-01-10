@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sydniechau_shoppies/static/css/main.5741d3f3.chunk.css",
+    "main.css": "/sydniechau_shoppies/static/css/main.2a4bf443.chunk.css",
     "main.js": "/sydniechau_shoppies/static/js/main.b6726f38.chunk.js",
     "main.js.map": "/sydniechau_shoppies/static/js/main.b6726f38.chunk.js.map",
     "runtime-main.js": "/sydniechau_shoppies/static/js/runtime-main.27a4ffc5.js",
@@ -12,14 +12,14 @@
     "static/js/3.9383247b.chunk.js.map": "/sydniechau_shoppies/static/js/3.9383247b.chunk.js.map",
     "index.html": "/sydniechau_shoppies/index.html",
     "static/css/2.267ffeee.chunk.css.map": "/sydniechau_shoppies/static/css/2.267ffeee.chunk.css.map",
-    "static/css/main.5741d3f3.chunk.css.map": "/sydniechau_shoppies/static/css/main.5741d3f3.chunk.css.map",
+    "static/css/main.2a4bf443.chunk.css.map": "/sydniechau_shoppies/static/css/main.2a4bf443.chunk.css.map",
     "static/js/2.54c63f68.chunk.js.LICENSE.txt": "/sydniechau_shoppies/static/js/2.54c63f68.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.27a4ffc5.js",
     "static/css/2.267ffeee.chunk.css",
     "static/js/2.54c63f68.chunk.js",
-    "static/css/main.5741d3f3.chunk.css",
+    "static/css/main.2a4bf443.chunk.css",
     "static/js/main.b6726f38.chunk.js"
   ]
 }
