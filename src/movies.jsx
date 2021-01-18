@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
 
-//class to map the claims
+//class to map SearchedMovies 
 class SearchedMovies extends Component {
   render() {
     return (
@@ -15,6 +14,7 @@ class SearchedMovies extends Component {
         className="searchedMovies"
       >
         <h1>Search Results {this.props.searchResultFor}</h1>
+        {/* maps search results indivdually to SearchedMovies */}
         {this.props.searchedMovieList.map((searchedMovie) => (
           <SearchedMovie
             key={searchedMovie.id}
@@ -30,17 +30,20 @@ class SearchedMovies extends Component {
 
 export default SearchedMovies;
 
-//class for what an indivdual claim would look like
+//class for what an indivdual search result would look like 
 class SearchedMovie extends Component {
   render() {
+
+    //method to determine if 5 movies are already nominated 
     let button;
-    //this.props.nominationsList.includes(this.props.searchedMovie)
     if (
       this.props.currentIdList.includes(this.props.searchedMovie.id) ||
       this.props.currentIdList.length >= 5
     ) {
+      //diable all current nominations buttons in search bar 
       button = <DisabledButton />;
     } else {
+      //regular search result button with less than 5 movies nominated 
       button = (
         <button
           onClick={() =>
@@ -58,35 +61,22 @@ class SearchedMovie extends Component {
     }
     return (
       <div class="d-flex justify-content-between">
+        {/* individual search result for a movie  */}
         <div>
           <span style={{ fontsize: 30 }}>
             {this.props.searchedMovie.name} - {this.props.searchedMovie.year}
           </span>
         </div>
-
         <div>{button}</div>
       </div>
     );
   }
 }
 
-function ActiveButton(props) {
-  return (
-    <button
-      onClick={() =>
-        this.props.onNominate(
-          this.props.searchedMovie.name,
-          this.props.searchedMovie.year,
-          this.props.searchedMovie.id
-        )
-      }
-      className="btn btn-success btn-sm m-2"
-    >
-      Nominate
-    </button>
-  );
-}
 
+
+
+//styling for what a disabled button would look like
 function DisabledButton(props) {
   return (
     <button type="button" class="btn btn-secondary btn-sm m-2" disabled>

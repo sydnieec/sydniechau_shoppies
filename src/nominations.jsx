@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
 
-//class to map the claims
+//class to map Nominationed Movies 
 class NominatedMoives extends Component {
   render() {
     return (
@@ -16,6 +15,7 @@ class NominatedMoives extends Component {
         className="Nominations"
       >
         <h1>Nominations</h1>
+        {/* maps nominationsList indivdually to SearchedMovies */}
         {this.props.nominationsList.map((nominatedMovie) => (
           <NominatedMovie
             key={nominatedMovie.id}
@@ -30,7 +30,7 @@ class NominatedMoives extends Component {
 
 export default NominatedMoives;
 
-//class for what an indivdual claim would look like
+//class for what an indivdual nomination would look like
 class NominatedMovie extends Component {
   render() {
     return (

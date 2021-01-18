@@ -6,7 +6,7 @@ import axios from "axios";
 import Nominations from "./nominations";
 import "./App.css";
 
-//component in charge of handling new items being added to the cart
+//Main page for Shoppies 
 class App extends Component {
   state = {
     searchedMovieList: [],
@@ -18,7 +18,9 @@ class App extends Component {
     searchResultFor: "",
   };
 
-  //sends a API post request to local server retreive product name and price
+
+
+  //sends a API get request to OMDB Api and retrieve a list of serach results 
   addurl = (customUrl) => {
     axios
       .get(this.state.url + customUrl)
@@ -36,12 +38,16 @@ class App extends Component {
       })
       .catch((error) => {
         console.log(error);
+        //Sends an alert message to the user if response is an error
         alert(
           "No search results/too many search results. Please refine your search."
         );
       });
   };
 
+
+
+  //Called when search button is clicked, that calls addURL with text that was in the serach bar 
   handleSubmit = (event) => {
     this.addurl(this.state.searchField);
     event.preventDefault();
@@ -51,22 +57,26 @@ class App extends Component {
     });
   };
 
+
+
+  //Used to constantly update state of search fieild to what is in the search bar 
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
   };
 
+
+
+  //Called from nominations.jsx whenever delete button is clicked 
   handleDelete = (movieId) => {
-    //delete movie from current list of nominatations
+  //delete movie from current list of nominatations and list of ids 
     var nominationsList = this.state.nominationsList.filter(
       (c) => c.id !== movieId
     );
-
-    //delete movie from current list of ids held
     var currentIdList = this.state.currentIdList.filter((c) => c !== movieId);
 
+    //Stores CurrendIdList and NominationList to local cache 
     var local_currentIdList = JSON.stringify(currentIdList);
     var local_nominationsList = JSON.stringify(nominationsList);
-
     localStorage.setItem("localcurrentIdList", local_currentIdList);
     localStorage.setItem("localnominationsList", local_nominationsList);
 
@@ -74,15 +84,17 @@ class App extends Component {
     this.setState({ nominationsList });
   };
 
+    
+
+  //Called from Movies.jsx whenever nominated button is clicked to added to nominationsList
   onNominate = (movie, year, id) => {
-    //add nominations from searched movies to nominations list
     this.state.nominationsList.push({
       id: id,
       name: movie,
       year: year,
     });
-
     this.state.currentIdList.push(id);
+
     var visited = this.state.currentIdList.length > 0;
     localStorage.setItem("visited", visited);
     this.setState({
@@ -100,6 +112,9 @@ class App extends Component {
     console.log("ADDED", this.state.nominationsList, this.state.currentIdList);
   };
 
+
+
+//Checks if user has visited before and retrieve information from local storage to set to current state
   componentDidMount() {
     const visited = localStorage.getItem("visited") === "true";
     if (visited) {
@@ -120,6 +135,8 @@ class App extends Component {
   }
 
   render() {
+
+    //Banner that appear only when user has reached their limit of 5 nominations 
     let banner;
     if (this.state.currentIdList.length >= 5) {
       banner = (
@@ -132,11 +149,9 @@ class App extends Component {
           </h1>
         </div>
       );
-      // alert("You have finsihed nominations");
     }
 
     return (
-      // form to add item
       <div style={{ divStyle }} className="Main">
         <h1
           style={{
@@ -149,7 +164,8 @@ class App extends Component {
         >
           The Shoppies
         </h1>
-
+        
+        {/* Form that submits search results to API calls  */}
         <Form
           className="searchBar"
           style={divStyle}
@@ -165,12 +181,16 @@ class App extends Component {
             />
             <Form.Text className="text-muted"></Form.Text>
           </Form.Group>
-
           <Button variant="primary" type="submit">
             Search
           </Button>
         </Form>
+
+
+
         {banner}
+
+        {/* Components for Search Results and Nominations List  */}
         <div className="rows">
           <SearchedMovies
             className="row"
@@ -185,8 +205,6 @@ class App extends Component {
             nominationsList={this.state.nominationsList}
           />
         </div>
-
-        {/* <p>WOAH{this.state.nominationsList} </p> */}
       </div>
     );
   }
@@ -194,9 +212,10 @@ class App extends Component {
 
 export default App;
 
+
+//For styling divs 
 const divStyle = {
   marginTop: "3%",
-
   marginLeft: "20%",
   marginRight: "20%",
   padding: "1%",
